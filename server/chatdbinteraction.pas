@@ -675,6 +675,4 @@ end;
 
 initialization
   TChatDbConnectionPicker.Lock := TCriticalSection.Create();
-finalization
-  TChatDbConnectionPicker.Clear();
 end.

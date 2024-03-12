@@ -2,6 +2,8 @@
 
 {$APPTYPE CONSOLE}
 //{$R *.res}
+
+
 {$R *.dres}
 
 uses
@@ -27,7 +29,6 @@ uses
   servermanager in 'server\servermanager.pas',
   commandlineparser in 'server\commandlineparser.pas',
   chatdbinteraction in 'server\chatdbinteraction.pas';
-
 
 function CheckDBPassword(): boolean;
 var password: string;
@@ -59,7 +60,6 @@ var
   chatDB: TChatDb;
   Command: TUserCommand;
   ServerParams: TServerStartParams;
-  SqlSettings: TSqLSettings;
 
   username, password: string;
   c: char;
@@ -69,7 +69,6 @@ begin
 
   commandlineparser := TCommandLineParser.Create();
   chatDb := nil;
-  SqlSettings := nil;
   try
     Command := commandlineparser.Parse();
     if Command = CommandIncorrect then
@@ -161,9 +160,8 @@ begin
       Writeln(E.ClassName, ': ', E.Message);
     end;
   end;
-  FreeAndNil(chatDB);
+  if chatdb <> nil then FreeAndNil(chatDB);
   FreeAndNil(commandlineparser);
-  if SqlSettings <> nil then FreeAndNil(SqlSettings);
   Writeln('Завершение работы. Нажмите Enter для выхода');
   Readln;
 
