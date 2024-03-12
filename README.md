@@ -5,4 +5,4 @@
 2. ChatServer.exe  { -adduser | -removeuser | -resetuser } \[\<setting_file_name\>\] \<username\> -  добавление (-add), удаление (-remove) пользователя с именем  \<username\>, а также сброс (-reset) пароля у \<username\>. Обработка параметра \<setting_file_name\> аналогично п.1
 
 На данный момент реализованf поддержка следующих СУБД
-1. MS-SQL с собстенным управлением пользователями и аутентификацией (таблица participants; см. файл экспорта import-ms-sql-own.sql)
+1. MS-SQL с собстенным управлением пользователями и аутентификацией (таблица participants; см. файл экспорта export-ms-sql-own.sql)
