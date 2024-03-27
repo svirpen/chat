@@ -83,9 +83,10 @@ end;
 function TCommandLineParser.Parse(): TUserCommand;
   function GetNextRegGrpValue(GrpEnum: TGroupCollectionEnumerator): string;
   begin
-    // Пока Delphi обёртка не поддерживает нормальную проверку захвата группы по имени,
-    // (сейчас можно только проверять, вызовет ли Group[<имя группы>] exception),
-    // а также проверку имени группы по индексу  - будем обходить по enum
+    // Delphi обёртка не поддерживает нормальную проверку захвата группы по имени,
+    // (сейчас можно только проверять, вызовет ли Group[<имя группы>] exception).
+    // Также нельзя проести проверку имени группы по индексу.
+    // Поэтому будем проходить по TGroupCollectionEnumerator
     result := '';
     if GrpEnum.MoveNext() then
       result := Trim(GrpEnum.Current.Value);
@@ -105,11 +106,11 @@ begin
   for i := 1 to ParamCount do
     AllArgStr := AllArgStr + ' ' + ParamStr(i);
 
-  RegStartServer :=
+  RegStartServer := // например, -start 127.0.0.1 2006 d:\is\cert.pem d:\is\key.pem d:\chatserver\main.conf
     '-start(?<address> [^\s]+)?' + '(?<port> \d{1,5})' +
       '(?<cert> [^\s]+ [^\s]+)?' + '(?<setting_file> [^\s]+)?';
 
-  RegUser :=
+  RegUser :=  // например, -adduser admin1 d:\chatserver\main.conf
     '(?<command>(?:-adduser)|(?:-removeuser)|(?:-resetuser)) '+
       '(?<username>[^\s]+)' + '(?<conf_file> [^\s]+)?';
 

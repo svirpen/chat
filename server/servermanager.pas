@@ -26,6 +26,8 @@ uses
   Windows;
 
 type
+/// <summary> Потокобезопасный Dictionary - связка коннекта с именем пользователя
+/// </summary>  
   TConnectionUsernameMap = class
   private
     AcceptedConnections: TDictionary<TIdContext, string>;
@@ -251,7 +253,6 @@ begin
     TLSServerHandler.SSLOptions.KeyFile := 'privatekey.pem';
     TLSServerHandler.SSLOptions.CertFile := 'cert.pem';
 
-    // TLSServHandler.SSLOptions.RootCertFile := 'E:\migrate\cert.pem';
     TLSServerHandler.SSLOptions.CipherList := 'ECDHE-RSA-AES256-GCM-SHA384:' +
       'ECDHE-RSA-AES128-GCM-SHA256:' + 'ECDHE-RSA-AES256-SHA384:' +
       'ECDHE-RSA-AES128-SHA256:' + 'ECDHE-RSA-AES256-SHA:' +
@@ -455,7 +456,7 @@ begin
       Context.Connection.IOHandler.WriteLn(JSonStr);
     end;
 
-    ChatDb.ProcessHistoryRecord(RecordProc, 15);
+  ChatDb.ProcessHistoryRecord(RecordProc, 15);
 
 
 end;

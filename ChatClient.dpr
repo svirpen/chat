@@ -16,6 +16,5 @@ begin
   Application.MainFormOnTaskbar := True;
   Application.CreateForm(TMainForm, MainForm);
   Application.CreateForm(TFormLogin, FormLogin);
-  //Application.CreateForm(TFormAuthentication, formAuthentication);
   Application.Run;
 end.

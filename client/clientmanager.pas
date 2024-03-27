@@ -169,7 +169,9 @@ begin
   TcpClient1.Connect();
 end;
 
-
+/// <summary> Проверка сертификата сервера. Сравнивается общая валидность,
+/// актуальность, можно проверять SHA256 хэш сертификата по полю CertSha256  
+/// </summary>   
 function TClientManager.VerifyServer(Certificate: TIdX509; AOk: Boolean; ADepth, AError: Integer): Boolean;
 var CertServerSha256 :string;
 begin

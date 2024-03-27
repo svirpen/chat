@@ -37,8 +37,11 @@ type
 //        const MessageText: string);
 //  end;
 
-//  TChatDb = class(TSingletonImplementation, IChatDb)
+  
+/// <summary> TChatDb - абстрактный класс для работы с БД (ChatDb)
+/// </summary>   
   TChatDb = class
+//  TChatDb = class(TSingletonImplementation, IChatDb)  
   private
     FMainUSer, FMainPassword: string;
   public
@@ -60,6 +63,8 @@ type
         const MessageText: string); virtual; abstract;
   end;
 
+/// <summary> TAdoChatDb - класс для работы с ADO-совместимыми БД (ChatDb)
+/// </summary>  
   TAdoChatDb = class(TChatDb)
   private
     ADOConnection: TADOConnection;
@@ -90,7 +95,9 @@ type
         const MessageText: string); override;
   end;
 
-
+/// <summary> Абстрактный класс для построения объектов-
+/// потомков класса TChatDb (TChatDb - абстрактный класс для работы с БД)
+/// </summary>  
   TChatDbBuilder = class
   protected
     function GetSectionName(): string; virtual; abstract;
@@ -106,6 +113,9 @@ type
 
   TChatDbBuilderRef = class of TChatDbBuilder;
 
+/// <summary> Класс для построения объектов TAdoChatDb
+/// (TAdoChatDb - класс для работы с ADO-совместимыми БД)
+/// </summary> 
   TADOChatDbBuilder = class(TChatDbBuilder)
   private
     const SECTION_NAME = 'ADO';
@@ -119,7 +129,10 @@ type
     class function MakeDBClass(const SQlSettings:  TSQLSettings): TChatDb; override;
   end;
 
-  TChatDbConnectionPicker = record //singletone
+/// <summary> Record для подбора файла конфигурации SQL-соединения
+/// по конфигурационному файлу (singletone)
+/// </summary>  
+  TChatDbConnectionPicker = record //
   private
     const DefaultConnect = 'ADO';
     class var
@@ -675,4 +688,6 @@ end;
 
 initialization
   TChatDbConnectionPicker.Lock := TCriticalSection.Create();
+finalization
+  TChatDbConnectionPicker.Clear();
 end.

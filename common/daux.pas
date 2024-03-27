@@ -56,6 +56,9 @@ begin
   end;
 end;
 
+/// <summary> Функция получения текста из ресурса с форматированием ширины
+/// вывода (по умолчанию 80 символов)
+/// </summary>   
 function GetResStrWidthFormatted(const ResourceName: string;
      const TerminalWidth: integer): string;  // форматирование по ширине окна консоли
 const crlf = #13#10;
